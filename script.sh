@@ -37,7 +37,7 @@ sudo yum install tkinter
 pip3 install pyaudio
 
 
-
+bc0e1e1df4790da07e32bc302106c9b5
 
 
 
