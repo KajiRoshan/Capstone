@@ -35,7 +35,7 @@ def message ():
     engine.say("sending message now Please enter the following information.")
     engine.runAndWait()
     account_sid = 'AC782e8d5ce357d38b0988123479991591'
-    auth_token = '0c395bd005a0fb5809b4d96bb3243649'
+    auth_token = 'bc0e1e1df4790da07e32bc302106c9b5'
     client = Client(account_sid, auth_token)
     message = client.messages.create(
     body= easygui.enterbox("Please enter your message"),
@@ -53,7 +53,7 @@ def email():
     subject = easygui.enterbox ("Enter subject:")
     body = easygui.enterbox("Enter message: ")
 
-    os.system('xdg-open "mailto:' + recipient + '?subject=' + subject + '&body=' + body + '"')
+    webbrowser.open("https://mail.google.com/mail/?view=cm&to=" + recipient + "&su=" + subject + "&body=" + body)
 def tell_joke():
     jokes = [
         "Why did the scarecrow win an award? Because he was outstanding in his field!",
@@ -109,16 +109,16 @@ def add_user():
     length=12
     pwd = random.sample(chars,length)
     passd= ''.join((pwd))
-    print(passd)
      # Ask for the input
     username = input("Enter Username ")  
- 
+    print(passd) 
      # Asking for users password
     password = passd
         
     try:
          # executing useradd command using subprocess module
-       subprocess.run(['useradd', '-p', password, username ])     
+       subprocess.run(['useradd', '-m', '-p', password, username])
+       engine.say("Username" +username+ "added successfully")
     except:
        print(f"Failed to add user.")                    
        sys.exit(1)
@@ -127,9 +127,9 @@ def add_user():
 
 def calls():
     account_sid = 'AC782e8d5ce357d38b0988123479991591'
-    auth_token = '0c395bd005a0fb5809b4d96bb3243649'
+    auth_token = 'bc0e1e1df4790da07e32bc302106c9b5'
     client = Client(account_sid, auth_token)
-    if "roshan" in command:
+    if "roshan" in command or "rosen" in command:
         engine.say("Calling roshan")
         call = client.calls.create(
                         url='http://demo.twilio.com/docs/voice.xml',
@@ -166,7 +166,7 @@ def scan_ports():
         s.close()
 
 def article():
-    openai.api_key = "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"
+    openai.api_key = "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"
 
 # Define the prompt for the article
     prompt = command
@@ -192,7 +192,8 @@ def article():
         
 
 #https://www.geeksforgeeks.org/fetching-top-news-using-news-api/#	
-
+def info():
+    engine.say("Hi I'm Jarvis, your personal assistant created by Isaac, Roshan, Samip adn Sean. I'm capable of doing many things which I'll show in a bit. I'm written in python language and currently using engine module to speak.")    
 
 
 def Search():
@@ -229,7 +230,7 @@ wake_up_phrase = "jarvis"
 # Continuously listen for commands
 while True:
     with sr.Microphone() as source:
-        print("Listening...")
+        print("Listening for wake up word...")
         audio = r.listen(source, phrase_time_limit=7)
     try:
         # Use speech recognition engine to convert audio to text
@@ -251,11 +252,7 @@ while True:
                 print("Command: " + command)
                 command = r.recognize_google(audio).lower()
                 print(f"Command recognized: {command}")
-                if "open file explorer" in command:
-                    engine.say("opening file explorer")
-                    engine.runAndWait()
-                    subprocess.call(["explorer"])
-                elif "chrome" in command:
+                if "chrome" in command:
                     chrome()
                 elif "facebook" in command:
                     facebook()
@@ -271,6 +268,8 @@ while True:
                     tell_joke()
                 elif "brightness" in command:
                     screen_brightness()
+                elif "describe yourself" in command:
+                    info()
                 elif "who" in command or "where" in command or "what" in command or "weather" in command:
                     Search()
                 elif "search" in command:
@@ -288,7 +287,7 @@ while True:
                     add_user()	
                 elif "article" or "blog" in command:
                     article()
-            
+                
             except sr.UnknownValueError:
                 print("Could not understand audio")
                 

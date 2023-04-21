@@ -35,9 +35,10 @@ sudo pip3 install random
 sudo pip3 install sbc
 sudo yum install tkinter
 pip3 install pyaudio
-sudo idl3 python.py
+sudo idle3 python.py
 
-bc0e1e1df4790da07e32bc302106c9b5
+
+
 
 
 
